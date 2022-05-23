@@ -1,0 +1,14 @@
+.loadingSpin {
+  margin: 0 auto;
+  display: block;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content>span {
+  display: flex;
+}
