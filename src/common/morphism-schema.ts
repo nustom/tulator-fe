@@ -3,7 +3,7 @@ import { ITopic, ITopicResponse } from "../features/topic/interface";
 import _ from "lodash";
 
 export const TOPIC_SCHEMA: Schema<ITopic | ITopic[], ITopicResponse> = {
-  id: "_id",
+  id: "id",
   author: "author",
   content: "content",
   createdAt: "createdAt",

@@ -40,7 +40,7 @@ const CommentEditor: FC<CommentEditorProps> = ({ rootTopic }) => {
       });
     }
   }, [isSuccess, isError, status, refetch]);
-  
+
   const handleSubmitReply = async (): Promise<void> => {
     const createReply: ICreateTopic = {
       author: user!.username,

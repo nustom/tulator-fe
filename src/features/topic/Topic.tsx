@@ -6,6 +6,7 @@ import { useGetTopics } from "./topicAPI";
 
 const Topic: FC<{}> = () => {
   const { data: topics, isLoading } = useGetTopics();
+
   return (
     <>
       {isLoading ? (
