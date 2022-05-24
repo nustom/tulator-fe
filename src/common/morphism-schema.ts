@@ -9,10 +9,11 @@ export const TOPIC_SCHEMA: Schema<ITopic | ITopic[], ITopicResponse> = {
   createdAt: "createdAt",
   parentId: "parent.id",
   topics: source => {
-    if (source?.topics?.length) {
-      const items = _.orderBy(source.topics, item => new Date(item.createdAt));
+    if (source?.children?.length) {
+      const items = _.orderBy(source.children, item => new Date(item.createdAt));
       return morphism(TOPIC_SCHEMA, items);
     }
     return [];
   },
+  parent: "parent",
 }

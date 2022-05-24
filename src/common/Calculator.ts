@@ -44,7 +44,7 @@ export class AppCalculator implements IAppCalculator {
     return CALCULATE_HANDLER[op](x, y);
   }
 
-  private traversingResults(root: ITopic, data: string[]): number {
+  traversingResults(root: ITopic, data: string[]): number {
     let result = parseFloat(root.content);
     data.forEach(calc => {
       const operator = calc[0] as Operator;
