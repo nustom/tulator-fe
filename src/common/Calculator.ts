@@ -1,3 +1,4 @@
+import { orderBy } from "lodash";
 import { ITopic } from "../features/topic/interface";
 import { IAppCalculator, Operator } from "./interface";
 
@@ -38,6 +39,21 @@ export class AppCalculator implements IAppCalculator {
       return result;
     }
     return 0;
+  }
+  calculateResultTopic(topic: ITopic, listParents: ITopic[]): number {
+    let result = 0;
+    const sortedTopics = orderBy(
+      listParents,
+      (item) => new Date(item.createdAt)
+    );
+    const rootTopic: ITopic = sortedTopics[0];
+    const childrenOperators = sortedTopics
+      .slice(1)
+      .map((item) => item.content);
+
+    childrenOperators.push(topic.content);
+    result = this.traversingResults(rootTopic, childrenOperators);
+    return result;
   }
 
   private operatorReflection(op: Operator, x: number, y: number): number {
