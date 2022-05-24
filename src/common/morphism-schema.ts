@@ -7,10 +7,10 @@ export const TOPIC_SCHEMA: Schema<ITopic | ITopic[], ITopicResponse> = {
   author: "author",
   content: "content",
   createdAt: "createdAt",
-  parentId: "parentId",
+  parentId: "parent.id",
   topics: source => {
     if (source?.topics?.length) {
-      const items = _.orderBy(source.topics, item => new Date(item.createdAt))
+      const items = _.orderBy(source.topics, item => new Date(item.createdAt));
       return morphism(TOPIC_SCHEMA, items);
     }
     return [];
