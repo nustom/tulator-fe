@@ -1,6 +1,6 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { api as topicAPI } from '../features/topic/topicAPI';
+import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import authReducer from '../features/auth/authSlice';
+import { api as topicAPI } from '../features/topic/topicAPI';
 
 export const store = configureStore({
   reducer: {

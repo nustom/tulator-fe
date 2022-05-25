@@ -11,7 +11,7 @@ type BaseQueryOptions = {
   baseUrl: string
 }
 export const AxiosBaseQuery = ({ baseUrl }: BaseQueryOptions = { baseUrl: "" }): BaseQueryFn<ArgsBaseQueryFn> =>
-  async ({ url, method, data, params }) => {
+  async ({ url, method, data, params }: ArgsBaseQueryFn) => {
     try {
       const result = await axios({ url: baseUrl + url, method, data, params })
       return { data: result.data }

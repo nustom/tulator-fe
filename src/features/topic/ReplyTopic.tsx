@@ -16,7 +16,7 @@ const ReplyTopic: FC<ReplyTopicProps> = ({
 }) => {
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: any): void => {
     onSubmit(values);
     form.resetFields();
   };

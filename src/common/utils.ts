@@ -23,7 +23,7 @@ export function findAllParents(
   currentTopic: ITopic,
   allTopics: ITopic[],
   data: ITopic[]
-) {
+): void {
   if (!currentTopic.parentId) {
     return;
   } else {

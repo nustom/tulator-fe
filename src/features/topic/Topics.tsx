@@ -19,30 +19,38 @@ const renderCommentTree = (
     let currentResult = 0;
     let prevResult = _prevResult;
     let listCurrentParents: ITopic[] = [];
+    let root: ITopic | undefined = undefined;
     findAllParents(topic, flattenedTopics, listCurrentParents);
     if (listCurrentParents.length) {
       currentResult = calculator.calculateResultTopic(
         topic,
         listCurrentParents
       );
-      const root = listCurrentParents.find((parent) => !parent.parentId)!;
+      root = listCurrentParents.find((parent) => !parent.parentId)!;
       prevResult =
         _prevResult !== undefined ? _prevResult : parseFloat(root.content);
     }
+
     return (
-      <Collapse key={topic.id}>
+      <Collapse key={topic.id} defaultActiveKey={[topic.id]}>
         <Collapse.Panel key={topic.id} header={<></>}>
           <Card>
             <Comment
               content={
                 topic.parentId ? (
-                  <h1 className={styles.content}>
-                    <span>Last Result: {prevResult!.toFixed(2)}</span>
-                    <span>Current Reply: {topic.content}</span>
-                    <span>Result: {currentResult.toFixed(2)}</span>
-                  </h1>
+                  <div>
+                    <h1 className={styles.content}>
+                      <span>Last Result: {prevResult ? prevResult!.toFixed(2) : parseFloat(root!.content).toFixed(2)}</span>
+                      <span>Current Reply: {topic.content}</span>
+                      <span>Result: {currentResult.toFixed(2)}</span>
+                    </h1>
+                    <small>{topic.author}</small>
+                  </div>
                 ) : (
-                  <h1>Topic: {topic.content}</h1>
+                  <div>
+                    <h1>Topic: {topic.content}</h1>
+                    <small>{topic.author}</small>
+                  </div>
                 )
               }
             >

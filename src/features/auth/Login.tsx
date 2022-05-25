@@ -11,13 +11,9 @@ const Login: FC<{}> = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const onFinish = async (values: ILoginPayload) => {
+  const onFinish = async (values: ILoginPayload): Promise<void> => {
     await dispatch(login(values));
     navigate("/");
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
   };
 
   return (
@@ -28,7 +24,6 @@ const Login: FC<{}> = () => {
         wrapperCol={{ span: 8 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
         className={styles.loginForm}
       >

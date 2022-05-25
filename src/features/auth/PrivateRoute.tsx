@@ -10,7 +10,7 @@ interface Props {
 export const PrivateRoute: React.FC<Props> = ({
   component: RouteComponent,
 }) => {
-  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const isAuthenticated: boolean = useSelector(selectIsAuthenticated);
 
   if (isAuthenticated) {
     return <RouteComponent />;

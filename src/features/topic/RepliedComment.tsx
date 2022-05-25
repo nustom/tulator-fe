@@ -42,11 +42,15 @@ const RepliedComment: FC<PropsWithChildren<RepliedCommentProps>> = ({
           }
           content={
             parentId ? (
-              <h1 className={styles.content}>
-                <span>Last Result: {prevResult.toFixed(2)}</span>
-                <span>Current Reply: {content}</span>
-                <span>Result: {result.toFixed(2)}</span>
-              </h1>
+              <div>
+                <h1 className={styles.content}>
+                  <span>Last Result: {prevResult ? prevResult.toFixed(2) : rootTopic.content}</span>
+                  <span>Current Reply: {content}</span>
+                  <span>Result: {result.toFixed(2)}</span>
+                </h1>
+                <small>{author}</small>
+              </div>
+
             ) : (
               <h1>{content}</h1>
             )

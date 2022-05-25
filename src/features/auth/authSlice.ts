@@ -1,4 +1,4 @@
-import { AsyncThunk, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { ActionReducerMapBuilder, AsyncThunk, createAsyncThunk, createSlice, Draft, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { EStatus } from "../../common/interface";
 import { fakeLogin } from "./authAPI";
@@ -28,28 +28,28 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout: (state) => {
+    logout: (state): void => {
       state.isLoggedIn = false;
       state.user = null;
       localStorage.clear();
     },
-    authenticateUser: (state, action) => {
+    authenticateUser: (state, action): void => {
       state.isLoggedIn = true;
       state.user = action.payload;
     }
   },
   //Demo async thunk using RTK slice
-  extraReducers: (builder) => {
+  extraReducers: (builder: ActionReducerMapBuilder<AuthState>): void => {
     builder
-      .addCase(login.pending, state => {
+      .addCase(login.pending, (state: Draft<AuthState>) => {
         state.status = EStatus.LOADING;
       })
-      .addCase(login.fulfilled, (state, action) => {
+      .addCase(login.fulfilled, (state: Draft<AuthState>, action: PayloadAction<IUser>) => {
         state.status = EStatus.IDLE;
         state.user = action.payload;
         state.isLoggedIn = true;
       })
-      .addCase(login.rejected, (state, payload) => {
+      .addCase(login.rejected, (state: Draft<AuthState>) => {
         state.user = null;
         state.isLoggedIn = false;
         state.status = EStatus.FAILED;
@@ -59,7 +59,7 @@ export const authSlice = createSlice({
 
 export const { logout, authenticateUser } = authSlice.actions;
 
-export const selectCurrentUser = (state: RootState) => state.auth.user;
-export const selectIsAuthenticated = (state: RootState) => state.auth.isLoggedIn;
+export const selectCurrentUser = (state: RootState): IUser | null => state.auth.user;
+export const selectIsAuthenticated = (state: RootState): boolean => state.auth.isLoggedIn;
 
 export default authSlice.reducer;

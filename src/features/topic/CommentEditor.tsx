@@ -18,14 +18,12 @@ const CommentEditor: FC<CommentEditorProps> = ({ rootTopic }) => {
   const { refetch } = useGetTopics();
 
   const user = useAppSelector(selectCurrentUser);
-  const [state, setState] = useState({
-    reply: "",
-  });
+  const [reply, setReply] = useState("");
 
   const handleReplyChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setState((_state) => ({ ..._state, reply: event.target.value }));
+    setReply(event.target.value);
   };
 
   useEffect(() => {
@@ -44,11 +42,11 @@ const CommentEditor: FC<CommentEditorProps> = ({ rootTopic }) => {
   const handleSubmitReply = async (): Promise<void> => {
     const createReply: ICreateTopic = {
       author: user!.username,
-      content: state.reply,
+      content: reply,
       parentId: rootTopic.id,
     };
     await createTopic(createReply);
-    setState({ reply: "" });
+    setReply("");
   };
   return (
     <Comment
@@ -57,7 +55,7 @@ const CommentEditor: FC<CommentEditorProps> = ({ rootTopic }) => {
         <ReplyTopic
           onChange={handleReplyChange}
           onSubmit={handleSubmitReply}
-          value={state.reply}
+          value={reply}
           submitting={isLoading}
         />
       }

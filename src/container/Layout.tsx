@@ -17,7 +17,7 @@ export default function DefaultLayout({ children }: PropsWithChildren<{}>) {
   const [showModal, setShowModal] = useState(false);
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
-  useEffect(() => {
+  useEffect((): void => {
     console.log("---");
 
     // Check for authenticated user and update application state if required
